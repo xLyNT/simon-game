@@ -87,14 +87,14 @@ export default {
     },
     tileClick(e){
       const tiles = Array.from(document.querySelectorAll('.tile'));
-      if((tiles.indexOf(e.target) === this.tileToClick )&& !this.isRound && this.isPlaying){
-        tiles[this.tileToClick].classList.add(tiles[this.tileToClick].classList[1] + '-light');
+      if(this.isRound) return;
+      if((tiles.indexOf(e.target) === this.tileToClick )&& this.isPlaying){
+        const currentTile = tiles[this.tileToClick]
+        currentTile.classList.toggle(currentTile.classList[1] + '-light');
         this.sounds[this.tileToClick].play();
         setTimeout(() => {
-        
-        tiles[this.tileToClick].classList.remove(tiles[this.tileToClick].classList[1] + '-light');
-
-      }, 300)
+          currentTile.classList.toggle(currentTile.classList[1] + '-light');
+        }, 200)
         this.score++;
         if(this.tileToClickIndex < this.tilesList.length - 1){
           this.tileToClick = this.tilesList[this.tileToClickIndex + 1];
